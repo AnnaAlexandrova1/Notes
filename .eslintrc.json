@@ -1,0 +1,120 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "airbnb-base",
+        "airbnb-typescript/base",
+        "plugin:prettier/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "spaced-comment": [
+          "error",
+          "always",
+          {
+            "line": {
+              "markers": ["/"],
+              "exceptions": ["-", "+"]
+            },
+            "block": {
+              "markers": ["!"],
+              "exceptions": ["*"],
+              "balanced": true
+            }
+          }
+        ],
+        "function-paren-newline": ["error", "consistent"],
+        "lines-between-class-members": [
+          "error",
+          "always",
+          {
+            "exceptAfterSingleLine": true
+          }
+        ],
+        "@typescript-eslint/lines-between-class-members": [
+          "error",
+          "always",
+          {
+            "exceptAfterSingleLine": true
+          }
+        ],
+        "import/no-extraneous-dependencies": ["warn"],
+        "@typescript-eslint/no-use-before-define": ["warn"],
+        "@typescript-eslint/no-shadow": ["warn"],
+        "@typescript-eslint/naming-convention": ["warn"],
+        "@angular-eslint/no-input-rename": ["warn"],
+        "no-useless-escape": ["warn"],
+        "no-continue": ["warn"],
+        "prefer-destructuring": ["warn"],
+        "no-restricted-globals": ["warn"],
+        "no-new": ["warn"],
+        "prefer-const": ["warn"],
+        "no-useless-concat": ["warn"],
+        "no-cond-assign": ["warn"],
+        "no-async-promise-executor": ["warn"],
+        "no-await-in-loop": ["warn"],
+        "no-param-reassign": [
+          "warn",
+          {
+            "props": false
+          }
+        ],
+        "import/no-cycle": [
+          1,
+          {
+            "ignoreExternal": true
+          }
+        ],
+        "import/order": [
+          "error",
+          {
+            "groups": ["builtin", "external", "internal"],
+            "pathGroups": [
+              {
+                "pattern": "~/**",
+                "group": "internal"
+              }
+            ],
+            "pathGroupsExcludedImportTypes": ["builtin"],
+            "newlines-between": "always"
+          }
+        ],
+        "max-classes-per-file": [
+          "warn",
+          {
+            "ignoreExpressions": true
+          }
+        ],
+        "@angular-eslint/component-class-suffix": [1],
+        "@angular-eslint/no-output-native": [1],
+        "@angular-eslint/component-selector": [1],
+        "@angular-eslint/directive-selector": [1],
+        "@angular-eslint/no-output-on-prefix": [1],
+        "@angular-eslint/contextual-lifecycle": [1],
+        "@typescript-eslint/no-loop-func": [1],
+        "@typescript-eslint/no-unused-expressions": [1],
+        "prefer-template": "off",
+        "import/prefer-default-export": "off",
+        "class-methods-use-this": "off",
+        "no-prototype-builtins": "off",
+        "no-restricted-syntax": "off",
+        "guard-for-in": "off",
+        "no-extra-boolean-cast": "off",
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}
