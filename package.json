@@ -8,13 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
+    "eslint": "eslint",
     "lint-errors": "ng lint --quiet",
-    "prepare": "husky install husky",
-    "lint-staged": {
-      "*.{js,ts}": [
-        "eslint"
-      ]
-    }
+    "prepare": "husky install husky"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +23,9 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
+    "primeng": "^17.5.0",
+    "primeflex": "^3.3.0",
+    "primeicons": "^6.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
@@ -45,6 +44,8 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.1.2",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.4",
     "husky": "^8.0.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
