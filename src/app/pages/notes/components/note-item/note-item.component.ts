@@ -4,6 +4,7 @@ import { CardModule } from 'primeng/card';
 import { DialogService } from 'primeng/dynamicdialog';
 import { NoteModalComponent } from '../note-modal/note-modal.component';
 import { INote } from '../../../../interfaces/note.interface';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-note-item',
@@ -11,6 +12,7 @@ import { INote } from '../../../../interfaces/note.interface';
   imports: [
     ButtonModule,
     CardModule,
+    TagModule,
   ],
   providers: [ DialogService ],
   templateUrl: './note-item.component.html',

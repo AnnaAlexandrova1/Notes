@@ -1,8 +1,22 @@
 <div class="mt-5">
   <p-card
-    [header]="note.header"
     [style]="{ width: '100%' }"
   >
+    <div class="flex flex-row justify-content-between w-full">
+      <header class="font-semibold mr-3 text-black-600 w-2 text-lg w-10">{{ note.header }}</header>
+
+      @if (note.tags && note.tags.length > 0) {
+        <div>
+          @for (tag of note.tags; track tag.id){
+            <p-tag
+              [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)', 'margin-right': '1em'}"
+              [value]="tag?.name ?? ''"
+            ></p-tag>
+          }
+        </div>
+      }
+    </div>
+
     <p>{{ note.content }}</p>
 
     <p-button

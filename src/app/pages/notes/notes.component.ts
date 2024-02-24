@@ -3,8 +3,6 @@ import { ButtonModule } from 'primeng/button';
 import { NoteItemComponent } from './components/note-item/note-item.component';
 import { INote } from '../../interfaces/note.interface';
 import { DialogService } from 'primeng/dynamicdialog';
-import { NoteModalComponent } from './components/note-modal/note-modal.component';
-import { PromptsComponent } from '../prompts/prompts.component';
 import { PromptModalComponent } from '../prompts/propmt-modal/propmt-modal.component';
 
 @Component({
@@ -24,6 +22,16 @@ export class NotesComponent {
        id: '14lj',
        header: 'Заголовок 1',
        content:  'Тут будет размещен текст под Заголовком 1 и мы посмотрим что получится. Сегодня хорошая погода',
+       tags: [
+         {
+         id: 'ldd',
+         name: 'life'
+         },
+         {
+           id: 'lddd',
+           name: 'work'
+         },
+       ]
      },
      {
        id: '14lsa',
