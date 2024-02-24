@@ -12,7 +12,7 @@ import { INote } from '../../../../interfaces/note.interface';
     ButtonModule,
     CardModule,
   ],
-  providers: [DialogService],
+  providers: [ DialogService ],
   templateUrl: './note-item.component.html',
   styleUrl: './note-item.component.scss'
 })

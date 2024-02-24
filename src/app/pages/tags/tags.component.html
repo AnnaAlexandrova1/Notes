@@ -1,1 +1,18 @@
-<p>tags works!</p>
+<div class="tags mt-5">
+  <p-button
+    label="Создать тег"
+    icon="pi pi-plus"
+  ></p-button>
+
+  <div class="mt-5">
+    <ul class="tags-list">
+      @for (tag of $tags; track tag.id) {
+        <li>
+          <app-tag-item [tag]="tag"/>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
+
+
