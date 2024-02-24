@@ -1,7 +1,13 @@
-<div class=" mt-5">
+<div class="mt-5">
   <p-button label="Создать заметку" icon="pi pi-plus"></p-button>
   <div class="mt-5">
-    <app-note-item/>
+    <ul class="notes-list">
+      @for (note of $notes; track note.id) {
+        <li>
+          <app-note-item [note] = "note"/>
+        </li>
+      }
+    </ul>
   </div>
 </div>
 
