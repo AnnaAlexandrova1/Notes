@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 import { NotesComponent } from '../notes/notes.component';
+import { NavigateService } from '../../services/navigate.service';
 
 @Component({
   selector: 'app-layout',
@@ -17,17 +18,29 @@ export class LayoutComponent {
   public menuItems: MenuItem[] = [
     {
       label: 'Заметки',
-      icon: 'pi pi-fw pi-book'
+      icon: 'pi pi-fw pi-book',
+      routerLink: '/notes'
     },
     {
       label: 'Напоминания',
-      icon: 'pi pi-fw pi-bell'
+      icon: 'pi pi-fw pi-bell',
+      routerLink: '/prompts'
     },
     {
       label: 'Теги',
-      icon: 'pi pi-fw pi-tag'
+      icon: 'pi pi-fw pi-tag',
+      routerLink: '/tags'
     }];
 
   public activeItem: MenuItem | undefined = this.menuItems[0];
 
+  constructor(
+    private navigateService: NavigateService
+  ) {
+  }
+
+  public async onActiveItemChange($event: any){
+    console.log($event)
+   await this.navigateService.goToTitle($event.routerLink)
+  }
 }
