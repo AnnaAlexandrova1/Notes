@@ -4,6 +4,8 @@ import { NoteItemComponent } from './components/note-item/note-item.component';
 import { INote } from '../../interfaces/note.interface';
 import { DialogService } from 'primeng/dynamicdialog';
 import { NoteModalComponent } from './components/note-modal/note-modal.component';
+import { PromptsComponent } from '../prompts/prompts.component';
+import { PromptModalComponent } from '../prompts/propmt-modal/propmt-modal.component';
 
 @Component({
   selector: 'app-notes',
@@ -43,7 +45,7 @@ export class NotesComponent {
   constructor(private dialogService: DialogService) {}
 
   createNote() {
-    const ref = this.dialogService.open(NoteModalComponent, {
+    const ref = this.dialogService.open(PromptModalComponent, {
       width: '50%',
       height: 'auto',
     });

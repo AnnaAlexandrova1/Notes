@@ -1,0 +1,45 @@
+<div class="flex gap-5 flex-column-reverse md:flex-row">
+  <div class="flex-auto p-fluid">
+    <div class="flex-auto p-fluid">
+      <div class="mb-4">
+        <label
+          for="prompt"
+          class="block font-medium text-900 mb-2"
+        >
+          Напоминание
+        </label>
+
+        <input
+          id="prompt"
+          type="text" pInputText
+        >
+      </div>
+
+      <div class="mb-4">
+        <label
+          for="time"
+          class="block font-medium text-900 mb-2"
+        >
+          Дата и время
+        </label>
+
+        <p-calendar
+          id="time"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+          [(ngModel)]="date"
+        ></p-calendar>
+      </div>
+
+
+      <div class="flex-row">
+        <p-button
+          icon="pi pi-check"
+          label="Сохранить"
+          severity="success"
+          [style]="{ 'width': '10em' }"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+</div>

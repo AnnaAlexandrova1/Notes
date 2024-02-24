@@ -40,7 +40,6 @@ export class LayoutComponent {
   }
 
   public async onActiveItemChange($event: any){
-    console.log($event)
    await this.navigateService.goToTitle($event.routerLink)
   }
 }

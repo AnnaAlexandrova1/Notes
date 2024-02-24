@@ -18,17 +18,9 @@ import { InputTextModule } from 'primeng/inputtext';
   templateUrl: './note-modal.component.html',
   styleUrl: './note-modal.component.scss'
 })
-export class NoteModalComponent implements OnInit{
+export class NoteModalComponent{
   public note: INote;
   constructor(private ref: DynamicDialogRef, private config: DynamicDialogConfig) {
     this.note = this.config.data
-  }
-
-  closeModal() {
-    this.ref.close();
-  }
-
-  public ngOnInit(){
-    console.log(this.config.data)
   }
 }
