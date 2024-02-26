@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { IPrompt } from '../../interfaces/prompt.interface';
@@ -6,6 +6,8 @@ import { NoteModalComponent } from '../notes/components/note-modal/note-modal.co
 import { DialogService } from 'primeng/dynamicdialog';
 import { PromptModalComponent } from './propmt-modal/propmt-modal.component';
 import { DatePipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-prompts',
@@ -20,20 +22,9 @@ import { DatePipe } from '@angular/common';
   styleUrl: './prompts.component.scss'
 })
 export class PromptsComponent {
-  public prompts$: IPrompt[] = [
-    {
-      id: 'kjkj',
-      content: 'Prompt1',
-      date: new Date(),
-    },
-    {
-      id: 'kjkj',
-      content: 'Prompt1',
-      date: new Date(),
-    },
-  ];
+  public prompts$ = toSignal(this.apiService.getPropmts()) as Signal<IPrompt[]>
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialogService: DialogService, public apiService: ApiService) {}
 
   public createPrompt(){
     console.log(new Date())

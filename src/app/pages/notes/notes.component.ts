@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { NoteItemComponent } from './components/note-item/note-item.component';
 import { INote } from '../../interfaces/note.interface';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PromptModalComponent } from '../prompts/propmt-modal/propmt-modal.component';
+import { ApiService } from '../../services/api.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-notes',
@@ -17,40 +19,8 @@ import { PromptModalComponent } from '../prompts/propmt-modal/propmt-modal.compo
   styleUrl: './notes.component.scss'
 })
 export class NotesComponent {
-   public $notes: INote[] = [
-     {
-       id: '14lj',
-       header: 'Заголовок 1',
-       content:  'Тут будет размещен текст под Заголовком 1 и мы посмотрим что получится. Сегодня хорошая погода',
-       tags: [
-         {
-         id: 'ldd',
-         name: 'life'
-         },
-         {
-           id: 'lddd',
-           name: 'work'
-         },
-       ]
-     },
-     {
-       id: '14lsa',
-       header: 'Заголовок 2',
-       content:  'Тут будет размещен текст под Заголовком 1 и мы посмотрим что получится. Сегодня хорошая погода',
-     },
-     {
-       id: '1124lj',
-       header: 'Заголовок 3',
-       content:  'Тут будет размещен текст под Заголовком 1 и мы посмотрим что получится. Сегодня хорошая погода',
-     },
-     {
-       id: '14l321j',
-       header: 'Заголовок 4',
-       content:  'Тут будет размещен текст под Заголовком 1 и мы посмотрим что получится. Сегодня хорошая погода',
-     },
-   ]
-
-  constructor(private dialogService: DialogService) {}
+  public notes$ =  toSignal(this.apiService.getNotes()) as Signal<INote[]>;
+  constructor(private dialogService: DialogService, private apiService: ApiService) {}
 
   createNote() {
     const ref = this.dialogService.open(PromptModalComponent, {
