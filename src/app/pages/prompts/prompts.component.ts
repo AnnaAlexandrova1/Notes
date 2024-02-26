@@ -36,6 +36,7 @@ export class PromptsComponent {
   constructor(private dialogService: DialogService) {}
 
   public createPrompt(){
+    console.log(new Date())
     const ref = this.dialogService.open(PromptModalComponent, {
       width: '50%',
       height: '70%',
