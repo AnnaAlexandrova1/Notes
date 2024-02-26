@@ -7,7 +7,7 @@
 
   <div class="mt-5">
     <ul class="tags-list">
-      @for (tag of tags$(); track tag.id) {
+      @for (tag of apiService.tags$(); track tag.id) {
         <li>
           <app-tag-item [tag]="tag"/>
         </li>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, Signal } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { NoteItemComponent } from './components/note-item/note-item.component';
 import { INote } from '../../interfaces/note.interface';
@@ -18,14 +18,17 @@ import { toSignal } from '@angular/core/rxjs-interop';
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.scss'
 })
-export class NotesComponent {
-  public notes$ =  toSignal(this.apiService.getNotes()) as Signal<INote[]>;
-  constructor(private dialogService: DialogService, private apiService: ApiService) {}
+export class NotesComponent implements OnInit{
+  constructor(private dialogService: DialogService, public apiService: ApiService, private destroyRef: DestroyRef) {}
 
   createNote() {
     const ref = this.dialogService.open(PromptModalComponent, {
       width: '50%',
       height: 'auto',
     });
+  }
+
+  public ngOnInit() {
+    this.apiService.getNotes(this.destroyRef)
   }
 }

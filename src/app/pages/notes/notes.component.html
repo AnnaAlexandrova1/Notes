@@ -7,7 +7,7 @@
 
   <div class="mt-5">
     <ul class="notes-list">
-      @for (note of notes$(); track note.id) {
+      @for (note of apiService.notes$(); track note.id) {
         <li>
           <app-note-item [note]="note"/>
         </li>

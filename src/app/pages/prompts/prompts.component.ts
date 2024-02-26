@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, Signal } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { IPrompt } from '../../interfaces/prompt.interface';
@@ -21,10 +21,12 @@ import { ApiService } from '../../services/api.service';
   templateUrl: './prompts.component.html',
   styleUrl: './prompts.component.scss'
 })
-export class PromptsComponent {
-  public prompts$ = toSignal(this.apiService.getPropmts()) as Signal<IPrompt[]>
+export class PromptsComponent implements OnInit {
+  constructor(private dialogService: DialogService, public apiService: ApiService, private destroyRef: DestroyRef) {}
 
-  constructor(private dialogService: DialogService, public apiService: ApiService) {}
+  public ngOnInit() {
+    this.apiService.getPropmts(this.destroyRef)
+  }
 
   public createPrompt(){
     console.log(new Date())
