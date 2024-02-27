@@ -6,6 +6,10 @@
   ></p-button>
 
   <div class="mt-5">
+    @if (apiService.isLoading$ | async) {
+      <app-loader />
+    }
+
     <p-table
       [value]="apiService.prompts$()"
       [paginator]="true"

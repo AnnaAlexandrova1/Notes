@@ -2,7 +2,7 @@
   <div class="tag-wrapper">
     <p-tag
       [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}"
-      [value]="tag?.name ?? ''"
+      [value]="tag.name ?? ''"
     ></p-tag>
   </div>
 
@@ -10,6 +10,7 @@
      icon="pi pi-trash"
      severity="danger"
      [style]="{ 'margin-left': '.5em' }"
+     (onClick)="delete(tag.id)"
    ></p-button>
 </div>
 

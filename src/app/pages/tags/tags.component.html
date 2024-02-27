@@ -6,10 +6,14 @@
   ></p-button>
 
   <div class="mt-5">
+    @if (apiService.isLoading$ | async) {
+      <app-loader />
+    }
+
     <ul class="tags-list">
       @for (tag of apiService.tags$(); track tag.id) {
         <li>
-          <app-tag-item [tag]="tag"/>
+          <app-tag-item [tag]="tag" (deleteTag)="deleteTag(tag.id)"/>
         </li>
       }
     </ul>

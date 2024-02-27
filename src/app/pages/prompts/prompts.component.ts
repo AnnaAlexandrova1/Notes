@@ -1,19 +1,17 @@
-import { Component, DestroyRef, OnInit, Signal } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
-import { DatePipe } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { AsyncPipe, DatePipe } from '@angular/common';
 
-import { IPrompt } from '../../interfaces/prompt.interface';
-import { NoteModalComponent } from '../notes/components/note-modal/note-modal.component';
 import { PromptModalComponent } from './propmt-modal/propmt-modal.component';
 import { ApiService } from '../../services/api.service';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-prompts',
   standalone: true,
-  imports: [TableModule, ButtonModule, DatePipe],
+  imports: [TableModule, ButtonModule, DatePipe, AsyncPipe, LoaderComponent],
   providers: [DialogService],
   templateUrl: './prompts.component.html',
   styleUrl: './prompts.component.scss',

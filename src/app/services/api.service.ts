@@ -1,6 +1,6 @@
-import { computed, DestroyRef, Injectable, Signal, signal } from '@angular/core';
+import { computed, DestroyRef, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, finalize, Observable, take } from 'rxjs';
+import { BehaviorSubject, finalize, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { IObjectLiteral } from '../interfaces/object-literal.interface';
@@ -76,6 +76,20 @@ export class ApiService {
           this.loggerService.error(error);
         },
       });
+  }
+
+  public deleteTag(id: string, destroyRef: DestroyRef) {
+    this.http.delete(`http://localhost:3000/tags/${id}`).subscribe({
+      next: (response) => {
+        // в данном случае проверка на успешность удаления
+        if (response) {
+          this.getTags(destroyRef);
+        }
+      },
+      error: (error: Error) => {
+        this.loggerService.error(error);
+      },
+    });
   }
 
   private setIsLoading(value: boolean): void {
