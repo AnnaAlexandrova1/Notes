@@ -10,8 +10,11 @@
         </label>
 
         <input
+          pInputText
           id="prompt"
-          type="text" pInputText
+          type="text"
+          required="true"
+          [(ngModel)]="promptContent"
         >
       </div>
 
@@ -38,6 +41,7 @@
           label="Сохранить"
           severity="success"
           [style]="{ 'width': '10em' }"
+          (onClick)="createPrompt()"
         ></p-button>
       </div>
     </div>

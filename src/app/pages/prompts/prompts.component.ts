@@ -1,10 +1,10 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AsyncPipe, DatePipe } from '@angular/common';
 
-import { PromptModalComponent } from './propmt-modal/propmt-modal.component';
+import { PromptModalComponent } from './prompt-modal/propmt-modal.component';
 import { ApiService } from '../../services/api.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
@@ -16,7 +16,8 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
   templateUrl: './prompts.component.html',
   styleUrl: './prompts.component.scss',
 })
-export class PromptsComponent implements OnInit {
+export class PromptsComponent implements OnInit, OnDestroy {
+  public ref: DynamicDialogRef | undefined;
   constructor(
     private dialogService: DialogService,
     public apiService: ApiService,
@@ -28,9 +29,17 @@ export class PromptsComponent implements OnInit {
   }
 
   public createPrompt() {
-    this.dialogService.open(PromptModalComponent, {
+    this.ref = this.dialogService.open(PromptModalComponent, {
+      header: 'Создать напоминание',
       width: '50%',
       height: '70%',
+      data: this.destroyRef,
     });
+  }
+
+  ngOnDestroy() {
+    if (this.ref) {
+      this.ref.close();
+    }
   }
 }

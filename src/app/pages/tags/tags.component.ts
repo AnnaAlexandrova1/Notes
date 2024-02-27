@@ -31,13 +31,10 @@ export class TagsComponent implements OnInit, OnDestroy {
 
   public createTag() {
     this.ref = this.dialogService.open(TagModalComponent, {
+      header: 'Новый тег',
       width: '50%',
       height: 'auto',
       data: this.destroyRef,
-    });
-
-    this.ref.onClose.subscribe((data: any) => {
-      console.log(data);
     });
   }
 

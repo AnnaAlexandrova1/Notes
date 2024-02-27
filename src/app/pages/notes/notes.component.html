@@ -8,15 +8,15 @@
   <div class="mt-5">
     @if (apiService.isLoading$ | async) {
       <app-loader />
+    } @else {
+      <ul class="notes-list">
+        @for (note of apiService.notes$(); track note.id) {
+          <li>
+            <app-note-item [note]="note"/>
+          </li>
+        }
+      </ul>
     }
-
-    <ul class="notes-list">
-      @for (note of apiService.notes$(); track note.id) {
-        <li>
-          <app-note-item [note]="note"/>
-        </li>
-      }
-    </ul>
   </div>
 </div>
 

@@ -98,6 +98,26 @@ export class ApiService {
     });
   }
 
+  public createPrompt(prompt: { content: string; date: Date }, destroyRef: DestroyRef) {
+    const newPrompt: IPrompt = {
+      id: uuid.v4(),
+      content: prompt.content,
+      date: prompt.date,
+    };
+
+    this.http.post(`http://localhost:3000/prompts/`, newPrompt).subscribe({
+      next: (response) => {
+        // в данном случае проверка на успешность удаления
+        if (response) {
+          this.getPropmts(destroyRef);
+        }
+      },
+      error: (error: Error) => {
+        this.loggerService.error(error);
+      },
+    });
+  }
+
   public deleteTag(id: string, destroyRef: DestroyRef) {
     this.http.delete(`http://localhost:3000/tags/${id}`).subscribe({
       next: (response) => {

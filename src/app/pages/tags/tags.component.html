@@ -8,15 +8,15 @@
   <div class="mt-5">
     @if (apiService.isLoading$ | async) {
       <app-loader />
+    } @else {
+      <ul class="tags-list">
+        @for (tag of apiService.tags$(); track tag.id) {
+          <li>
+            <app-tag-item [tag]="tag" (deleteTag)="deleteTag(tag.id)"/>
+          </li>
+        }
+      </ul>
     }
-
-    <ul class="tags-list">
-      @for (tag of apiService.tags$(); track tag.id) {
-        <li>
-          <app-tag-item [tag]="tag" (deleteTag)="deleteTag(tag.id)"/>
-        </li>
-      }
-    </ul>
   </div>
 </div>
 

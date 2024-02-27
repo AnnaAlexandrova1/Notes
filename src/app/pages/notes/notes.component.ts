@@ -4,7 +4,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AsyncPipe } from '@angular/common';
 
 import { NoteItemComponent } from './components/note-item/note-item.component';
-import { PromptModalComponent } from '../prompts/propmt-modal/propmt-modal.component';
+import { PromptModalComponent } from '../prompts/prompt-modal/propmt-modal.component';
 import { ApiService } from '../../services/api.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
