@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "eslint": "eslint",
     "lint-errors": "ng lint --quiet",
-    "prepare": "husky install husky"
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,ts}": [
