@@ -1,6 +1,6 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AsyncPipe } from '@angular/common';
 
 import { NoteItemComponent } from '../notes/components/note-item/note-item.component';
@@ -17,7 +17,8 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
   templateUrl: './tags.component.html',
   styleUrl: './tags.component.scss',
 })
-export class TagsComponent implements OnInit {
+export class TagsComponent implements OnInit, OnDestroy {
+  public ref: DynamicDialogRef | undefined;
   constructor(
     private dialogService: DialogService,
     public apiService: ApiService,
@@ -29,13 +30,24 @@ export class TagsComponent implements OnInit {
   }
 
   public createTag() {
-    this.dialogService.open(TagModalComponent, {
+    this.ref = this.dialogService.open(TagModalComponent, {
       width: '50%',
       height: 'auto',
+      data: this.destroyRef,
+    });
+
+    this.ref.onClose.subscribe((data: any) => {
+      console.log(data);
     });
   }
 
   public deleteTag(id: string) {
     this.apiService.deleteTag(id, this.destroyRef);
+  }
+
+  ngOnDestroy() {
+    if (this.ref) {
+      this.ref.close();
+    }
   }
 }

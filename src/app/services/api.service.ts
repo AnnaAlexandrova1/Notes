@@ -2,6 +2,7 @@ import { computed, DestroyRef, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, finalize, take } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import * as uuid from 'uuid';
 
 import { IObjectLiteral } from '../interfaces/object-literal.interface';
 import { LoggerService } from './logger.service';
@@ -76,6 +77,25 @@ export class ApiService {
           this.loggerService.error(error);
         },
       });
+  }
+
+  public createTag(name: string, destroyRef: DestroyRef) {
+    const tag: ITag = {
+      name,
+      id: uuid.v4(),
+    };
+
+    this.http.post(`http://localhost:3000/tags/`, tag).subscribe({
+      next: (response) => {
+        // в данном случае проверка на успешность удаления
+        if (response) {
+          this.getTags(destroyRef);
+        }
+      },
+      error: (error: Error) => {
+        this.loggerService.error(error);
+      },
+    });
   }
 
   public deleteTag(id: string, destroyRef: DestroyRef) {

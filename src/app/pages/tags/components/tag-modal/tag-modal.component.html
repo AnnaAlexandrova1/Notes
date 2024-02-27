@@ -5,6 +5,7 @@
         <input
           id="email"
           type="text" pInputText
+          [(ngModel)]="tagName"
         >
       </div>
 
@@ -14,6 +15,7 @@
           label="Сохранить"
           severity="success"
           [style]="{ 'width': '10em' }"
+          (onClick)="createTag()"
         ></p-button>
       </div>
     </div>
