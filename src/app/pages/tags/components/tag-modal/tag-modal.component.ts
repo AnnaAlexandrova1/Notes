@@ -6,14 +6,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 @Component({
   selector: 'app-tag-modal',
   standalone: true,
-  imports: [
-    ButtonModule,
-    InputTextModule,
-    InputTextareaModule,
-  ],
+  imports: [ButtonModule, InputTextModule, InputTextareaModule],
   templateUrl: './tag-modal.component.html',
-  styleUrl: './tag-modal.component.scss'
+  styleUrl: './tag-modal.component.scss',
 })
-export class TagModalComponent {
-
-}
+export class TagModalComponent {}

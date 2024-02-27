@@ -7,15 +7,10 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-propmt-modal',
   standalone: true,
-  imports: [
-    ButtonModule,
-    InputTextModule,
-    CalendarModule,
-    FormsModule,
-  ],
+  imports: [ButtonModule, InputTextModule, CalendarModule, FormsModule],
   templateUrl: './propmt-modal.component.html',
-  styleUrl: './propmt-modal.component.scss'
+  styleUrl: './propmt-modal.component.scss',
 })
 export class PromptModalComponent {
-   public date: Date = new Date()
+  public date: Date = new Date();
 }
