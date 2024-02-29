@@ -5,7 +5,7 @@ import { AsyncPipe } from '@angular/common';
 
 import { NoteItemComponent } from './components/note-item/note-item.component';
 import { PromptModalComponent } from '../prompts/prompt-modal/propmt-modal.component';
-import { ApiService } from '../../services/api.service';
+import { ApiStateService } from '../../services/api-state.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
@@ -19,7 +19,7 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 export class NotesComponent implements OnInit {
   constructor(
     private dialogService: DialogService,
-    public apiService: ApiService,
+    public apiService: ApiStateService,
     private destroyRef: DestroyRef,
   ) {}
 

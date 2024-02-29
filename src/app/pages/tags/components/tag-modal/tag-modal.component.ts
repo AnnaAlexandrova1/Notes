@@ -5,7 +5,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { ApiService } from '../../../../services/api.service';
+import { ApiStateService } from '../../../../services/api-state.service';
 
 @Component({
   selector: 'app-tag-modal',
@@ -19,7 +19,7 @@ export class TagModalComponent {
   private destroyRef: DestroyRef;
 
   constructor(
-    public apiService: ApiService,
+    public apiService: ApiStateService,
     private dialogRef: DynamicDialogRef,
     private config: DynamicDialogConfig,
   ) {
@@ -31,7 +31,7 @@ export class TagModalComponent {
       alert('Длина тега не может быть меньше одного символа');
     }
 
-    this.apiService.createTag(this.tagName.toString(), this.destroyRef);
+    this.apiService.createTag(this.tagName.toString());
     this.dialogRef.close(this.tagName.toString());
   }
 }

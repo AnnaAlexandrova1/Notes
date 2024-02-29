@@ -15,8 +15,11 @@ import { ITag } from '../interfaces/tag.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiService {
+export class ApiStateService {
   public readonly isLoading$ = new BehaviorSubject<boolean>(false);
+  public readonly isNeeedUpdateNotes$ = new BehaviorSubject<boolean>(false);
+  public readonly isNeedUpdatePrompts$ = new BehaviorSubject<boolean>(false);
+  public readonly isNeedUpdateTags$ = new BehaviorSubject<boolean>(false);
   private readonly $state = signal<IInitialState>(INITIAL_STATE);
 
   public readonly notes$ = computed<INote[]>(() => this.$state().notes);
@@ -79,7 +82,7 @@ export class ApiService {
       });
   }
 
-  public createTag(name: string, destroyRef: DestroyRef) {
+  public createTag(name: string) {
     const tag: ITag = {
       name,
       id: uuid.v4(),
@@ -89,7 +92,7 @@ export class ApiService {
       next: (response) => {
         // в данном случае проверка на успешность удаления
         if (response) {
-          this.getTags(destroyRef);
+          this.setIsNeedUpdateTags$(true);
         }
       },
       error: (error: Error) => {
@@ -98,7 +101,7 @@ export class ApiService {
     });
   }
 
-  public createPrompt(prompt: { content: string; date: Date }, destroyRef: DestroyRef) {
+  public createPrompt(prompt: { content: string; date: Date }) {
     const newPrompt: IPrompt = {
       id: uuid.v4(),
       content: prompt.content,
@@ -109,7 +112,7 @@ export class ApiService {
       next: (response) => {
         // в данном случае проверка на успешность удаления
         if (response) {
-          this.getPropmts(destroyRef);
+          this.setIsNeedUpdatePrompts(true);
         }
       },
       error: (error: Error) => {
@@ -118,18 +121,30 @@ export class ApiService {
     });
   }
 
-  public deleteTag(id: string, destroyRef: DestroyRef) {
+  public deleteTag(id: string) {
     this.http.delete(`http://localhost:3000/tags/${id}`).subscribe({
       next: (response) => {
         // в данном случае проверка на успешность удаления
         if (response) {
-          this.getTags(destroyRef);
+          this.setIsNeedUpdateTags$(true);
         }
       },
       error: (error: Error) => {
         this.loggerService.error(error);
       },
     });
+  }
+
+  public setIsNeeedUpdateNotes(value: boolean): void {
+    this.isNeeedUpdateNotes$.next(value);
+  }
+
+  public setIsNeedUpdatePrompts(value: boolean): void {
+    this.isNeedUpdatePrompts$.next(value);
+  }
+
+  public setIsNeedUpdateTags$(value: boolean): void {
+    this.isNeedUpdateTags$.next(value);
   }
 
   private setIsLoading(value: boolean): void {

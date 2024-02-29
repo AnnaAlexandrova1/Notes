@@ -4,7 +4,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 
 import { ITag } from '../../../../interfaces/tag.interface';
-import { ApiService } from '../../../../services/api.service';
+import { ApiStateService } from '../../../../services/api-state.service';
 
 @Component({
   selector: 'app-tag-item',
@@ -17,7 +17,7 @@ export class TagItemComponent {
   @Input({ required: true }) tag!: ITag;
   @Output() deleteTag = new EventEmitter();
 
-  constructor(public apiService: ApiService) {}
+  constructor(public apiService: ApiStateService) {}
 
   public delete(id: string): void {
     this.deleteTag.emit(id);

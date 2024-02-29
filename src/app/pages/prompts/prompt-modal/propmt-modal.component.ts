@@ -5,7 +5,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { ApiService } from '../../../services/api.service';
+import { ApiStateService } from '../../../services/api-state.service';
 
 @Component({
   selector: 'app-prompt-modal',
@@ -21,7 +21,7 @@ export class PromptModalComponent {
   private destroyRef: DestroyRef;
 
   constructor(
-    public apiService: ApiService,
+    public apiService: ApiStateService,
     private dialogRef: DynamicDialogRef,
     private config: DynamicDialogConfig,
   ) {
@@ -37,10 +37,7 @@ export class PromptModalComponent {
       alert('Выберите дату');
     }
 
-    this.apiService.createPrompt(
-      { content: this.promptContent.toString(), date: this.date },
-      this.destroyRef,
-    );
+    this.apiService.createPrompt({ content: this.promptContent.toString(), date: this.date });
     this.dialogRef.close();
   }
 }

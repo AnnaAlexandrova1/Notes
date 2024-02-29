@@ -5,7 +5,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AsyncPipe, DatePipe } from '@angular/common';
 
 import { PromptModalComponent } from './prompt-modal/propmt-modal.component';
-import { ApiService } from '../../services/api.service';
+import { ApiStateService } from '../../services/api-state.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
@@ -18,9 +18,17 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 })
 export class PromptsComponent implements OnInit, OnDestroy {
   public ref: DynamicDialogRef | undefined;
+
+  private subscription$ = this.apiService.isNeedUpdatePrompts$.subscribe((value) => {
+    if (value) {
+      this.apiService.getPropmts(this.destroyRef);
+      this.apiService.setIsNeedUpdatePrompts(false);
+    }
+  });
+
   constructor(
     private dialogService: DialogService,
-    public apiService: ApiService,
+    public apiService: ApiStateService,
     private destroyRef: DestroyRef,
   ) {}
 
@@ -41,5 +49,7 @@ export class PromptsComponent implements OnInit, OnDestroy {
     if (this.ref) {
       this.ref.close();
     }
+
+    this.subscription$.unsubscribe();
   }
 }

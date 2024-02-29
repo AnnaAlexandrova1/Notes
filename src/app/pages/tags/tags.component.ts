@@ -6,7 +6,7 @@ import { AsyncPipe } from '@angular/common';
 import { NoteItemComponent } from '../notes/components/note-item/note-item.component';
 import { TagItemComponent } from './components/tag-item/tag-item.component';
 import { TagModalComponent } from './components/tag-modal/tag-modal.component';
-import { ApiService } from '../../services/api.service';
+import { ApiStateService } from '../../services/api-state.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
@@ -19,9 +19,17 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 })
 export class TagsComponent implements OnInit, OnDestroy {
   public ref: DynamicDialogRef | undefined;
+
+  private subscription$ = this.apiService.isNeedUpdateTags$.subscribe((value) => {
+    if (value) {
+      this.apiService.getTags(this.destroyRef);
+      this.apiService.setIsNeedUpdateTags$(false);
+    }
+  });
+
   constructor(
     private dialogService: DialogService,
-    public apiService: ApiService,
+    public apiService: ApiStateService,
     private destroyRef: DestroyRef,
   ) {}
 
@@ -39,12 +47,14 @@ export class TagsComponent implements OnInit, OnDestroy {
   }
 
   public deleteTag(id: string) {
-    this.apiService.deleteTag(id, this.destroyRef);
+    this.apiService.deleteTag(id);
   }
 
   ngOnDestroy() {
     if (this.ref) {
       this.ref.close();
     }
+
+    this.subscription$.unsubscribe();
   }
 }

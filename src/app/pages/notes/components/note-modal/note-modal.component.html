@@ -3,12 +3,12 @@
     <div class="flex-auto p-fluid">
       <div class="mb-4">
         <label for="email" class="block font-medium text-900 mb-2">Заголовок</label>
-        <input id="email" type="text" [value]="note?.header ?? ''" pInputText>
+        <input id="email" type="text" [value]="note.header" pInputText>
       </div>
 
       <div class="mb-4">
         <label for="bio" class="block font-medium text-900 mb-2">Заметка</label>
-        <textarea id="bio" type="text"  rows="5" [value]="note?.content ?? ''" [autoResize]="true" pInputTextarea></textarea>
+        <textarea id="bio" type="text"  rows="5" [value]="note.content" [autoResize]="true" pInputTextarea></textarea>
       </div>
 
       <div class="flex-row">
