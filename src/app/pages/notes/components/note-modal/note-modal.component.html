@@ -11,6 +11,18 @@
         <textarea id="bio" type="text"  rows="5" [value]="note.content" [autoResize]="true" pInputTextarea></textarea>
       </div>
 
+      <div class="mb-4">
+        <label for="bio" class="block font-medium text-900 mb-2">Установить теги</label>
+        <p-multiSelect
+          styleClass="w-full"
+          optionLabel="tags"
+          optionValue="id"
+          appendTo="body"
+          formControlName="organizationIds"
+          [options]="note.tags"
+        />
+      </div>
+
       <div class="flex-row">
         <p-button
           icon="pi pi-check"
