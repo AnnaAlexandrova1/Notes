@@ -34,16 +34,30 @@
       </div>
 
       <div class="mb-4">
-        <label for="tags" class="block font-medium text-900 mb-2">Установить теги</label>
+        <label for="tags" class="block font-medium text-500 mb-2">Установить теги</label>
         <p-multiSelect
           id="tags"
           styleClass="w-full"
-          optionLabel="tags"
-          optionValue="id"
+          optionValue="name"
           appendTo="body"
-          formControlName="organizationIds"
-          [options]="note.tags"
+          formControlName="tags"
+          [options]="apiService.tags$()"
+          [(ngModel)]="note.tags"
+          optionLabel="name"
         />
+      </div>
+
+      <div class="mb-4">
+        <label for="tags" class="block font-medium text-500 mb-2">Создать напоминание</label>
+
+        <p-calendar
+          id="date"
+          formControlName="date"
+          panelStyleClass="p-datepicker-custom"
+          [showTime]="true"
+          [iconDisplay]="'input'"
+          [showIcon]="true"
+        ></p-calendar>
       </div>
 
       <div class="flex-row">
@@ -53,7 +67,7 @@
           label="Сохранить"
           severity="success"
           [style]="{ 'width': '10em' }"
-          [disabled]="!!(apiService.isLoading$ | async)"
+          [disabled]="!!(apiService.isLoading$ | async) || !form.valid "
           (onClick)="closeEvent.emit()"
         ></p-button>
       </div>

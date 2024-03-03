@@ -28,6 +28,9 @@
 
         <p-calendar
           id="time"
+          panelStyleClass="p-datepicker-custom"
+          [showTime]="true"
+          [minDate]="date"
           [iconDisplay]="'input'"
           [showIcon]="true"
           [(ngModel)]="date"
@@ -41,6 +44,7 @@
           label="Сохранить"
           severity="success"
           [style]="{ 'width': '10em' }"
+          [disabled]="(!promptContent || promptContent.length < 2) || !date"
           (onClick)="createPrompt()"
         ></p-button>
       </div>

@@ -15,6 +15,7 @@
           label="Сохранить"
           severity="success"
           [style]="{ 'width': '10em' }"
+          [disabled]="!tagName || tagName.length < 1"
           (onClick)="createTag()"
         ></p-button>
       </div>

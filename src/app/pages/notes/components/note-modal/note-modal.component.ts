@@ -1,4 +1,11 @@
-import { Component, DestroyRef, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DividerModule } from 'primeng/divider';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -7,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
+import { CalendarModule } from 'primeng/calendar';
 
 import { INote } from '../../../../interfaces/note.interface';
 import { ApiStateService } from '../../../../services/api-state.service';
@@ -22,6 +30,7 @@ import { ApiStateService } from '../../../../services/api-state.service';
     MultiSelectModule,
     ReactiveFormsModule,
     AsyncPipe,
+    CalendarModule,
   ],
   templateUrl: './note-modal.component.html',
   styleUrl: './note-modal.component.scss',
@@ -31,36 +40,36 @@ export class NoteModalComponent implements OnInit {
   public note: INote;
   public form!: FormGroup;
   public isNewNote: boolean;
-  public headerControlValidators = [Validators.required];
-  public contentControlValidators = [Validators.required];
+  public requiredValidators = [Validators.required];
 
   constructor(
     public apiService: ApiStateService,
     private dialogRef: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private destroyRef: DestroyRef,
+    private cdref: ChangeDetectorRef,
   ) {
     this.note = this.config.data.note;
     this.isNewNote = this.config.data.isNewNote;
   }
 
   public ngOnInit(): void {
-    this.apiService.getTags(this.destroyRef);
+    this.apiService.getTags(this.destroyRef, true);
     this.initForm();
   }
 
   private initForm() {
     this.form = new FormGroup({
-      header: new FormControl(null, this.headerControlValidators),
-      content: new FormControl(null, this.contentControlValidators),
-      tags: new FormControl(null, [Validators.required, Validators.minLength(1)]),
-      // date: new FormControl(null),
+      header: new FormControl(null, this.requiredValidators),
+      content: new FormControl(null, this.requiredValidators),
+      tags: new FormControl(null),
+      date: new FormControl(null),
     });
 
     this.form.get('header')?.setValue(this.note?.header);
     this.form.get('content')?.setValue(this.note?.content);
     this.form.get('tags')?.setValue(this.note.tags ?? []);
-    // this.form.get('organizationIds')?.setValue(currentUser ? currentUser.organizations : []);
+    this.form.get('date')?.setValue(this.note.date ?? '');
   }
 
   public async submit(): Promise<void> {
@@ -74,13 +83,14 @@ export class NoteModalComponent implements OnInit {
     const header = this.form.get('header')?.value;
     const content = this.form.get('content')?.value;
     const tags = this.form.get('tags')?.value;
-    // const organizationIds = this.getOrganizationIds();
+    const date = this.form.get('date')?.value;
 
     try {
       this.apiService.createNote({
         header,
         content,
         tags,
+        date,
       });
 
       this.closeEvent.emit();
@@ -93,6 +103,7 @@ export class NoteModalComponent implements OnInit {
     const header = this.form.get('header')?.value;
     const content = this.form.get('content')?.value;
     const tags = this.form.get('tags')?.value;
+    const date = this.form.get('date')?.value;
 
     try {
       await this.apiService.updateNote({
@@ -100,6 +111,7 @@ export class NoteModalComponent implements OnInit {
         header,
         content,
         tags,
+        date,
       });
 
       this.closeEvent.emit();

@@ -65,14 +65,20 @@ export class ApiStateService {
       });
   }
 
-  public getTags(destroyRef: DestroyRef): void {
-    this.setIsLoading(true);
+  public getTags(destroyRef: DestroyRef, noLoading?: boolean): void {
+    if (!noLoading) {
+      this.setIsLoading(true);
+    }
     this.http
       .get(`http://localhost:3000/tags`)
       .pipe(
         take(1),
         takeUntilDestroyed(destroyRef),
-        finalize(() => this.setIsLoading(false)),
+        finalize(() => {
+          if (!noLoading) {
+            this.setIsLoading(false);
+          }
+        }),
       )
       .subscribe({
         next: (response) => this.tagsDataSuccess(response),
@@ -101,7 +107,7 @@ export class ApiStateService {
     });
   }
 
-  public createNote(note: { header: string; content: string; tags?: ITag[] }) {
+  public createNote(note: { header: string; content: string; tags?: ITag[]; date?: Date }) {
     const newNote = {
       ...note,
       id: uuid.v4(),

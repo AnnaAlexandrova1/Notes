@@ -1,8 +1,17 @@
-:host {
-  ::ng-deep {
-    .p-datepicker-group-container {
-      width: 15em !important;
-      height: 15em !important;
+::ng-deep {
+  .p-datepicker-custom {
+    * {
+      font-size: 14px !important;
+      width: fit-content;
+    }
+
+    table td, table th {
+      padding: 1px;
+
+      > span {
+        width: 2rem;
+        height: 2rem
+      }
     }
   }
 }
