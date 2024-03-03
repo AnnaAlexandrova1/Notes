@@ -35,8 +35,8 @@ export class LayoutComponent implements OnInit {
 
   constructor(private navigateService: NavigateService) {}
 
-  public ngOnInit() {
-    this.navigateService.goToTitle(this.activeItem.routerLink);
+  public async ngOnInit() {
+    await this.navigateService.goToTitle(this.activeItem.routerLink);
   }
 
   public async onActiveItemChange($event: any) {

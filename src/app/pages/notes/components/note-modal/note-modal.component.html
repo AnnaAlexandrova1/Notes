@@ -22,7 +22,9 @@
           for="content"
           class="block font-medium text-900 mb-2"
         >
-          Заметка</label>
+          Заметка
+        </label>
+
         <textarea
           id="content"
           type="text"
@@ -35,15 +37,16 @@
 
       <div class="mb-4">
         <label for="tags" class="block font-medium text-500 mb-2">Установить теги</label>
+
         <p-multiSelect
           id="tags"
           styleClass="w-full"
           optionValue="name"
           appendTo="body"
           formControlName="tags"
+          optionLabel="name"
           [options]="apiService.tags$()"
           [(ngModel)]="note.tags"
-          optionLabel="name"
         />
       </div>
 

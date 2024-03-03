@@ -21,7 +21,7 @@ export class PromptsComponent implements OnInit, OnDestroy {
 
   private subscription$ = this.apiService.isNeedUpdatePrompts$.subscribe((value) => {
     if (value) {
-      this.apiService.getPropmts(this.destroyRef);
+      this.apiService.getPrompts(this.destroyRef);
       this.apiService.setIsNeedUpdatePrompts(false);
     }
   });
@@ -33,7 +33,7 @@ export class PromptsComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit() {
-    this.apiService.getPropmts(this.destroyRef);
+    this.apiService.getPrompts(this.destroyRef);
   }
 
   public createPrompt() {

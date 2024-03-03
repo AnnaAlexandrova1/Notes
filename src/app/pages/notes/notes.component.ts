@@ -30,6 +30,10 @@ export class NotesComponent implements OnInit, OnDestroy {
     private destroyRef: DestroyRef,
   ) {}
 
+  public ngOnInit() {
+    this.apiService.getNotes(this.destroyRef);
+  }
+
   createNote() {
     this.dialogService.open(NoteModalComponent, {
       width: '50%',
@@ -43,10 +47,6 @@ export class NotesComponent implements OnInit, OnDestroy {
         isNewNote: true,
       },
     });
-  }
-
-  public ngOnInit() {
-    this.apiService.getNotes(this.destroyRef);
   }
 
   ngOnDestroy() {

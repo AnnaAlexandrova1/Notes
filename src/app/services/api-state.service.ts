@@ -48,7 +48,7 @@ export class ApiStateService {
       });
   }
 
-  public getPropmts(destroyRef: DestroyRef): void {
+  public getPrompts(destroyRef: DestroyRef): void {
     this.setIsLoading(true);
     this.http
       .get(`http://localhost:3000/prompts`)

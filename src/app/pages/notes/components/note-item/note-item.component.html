@@ -1,7 +1,5 @@
 <div class="mt-5">
-  <p-card
-    [style]="{ width: '100%' }"
-  >
+  <p-card [style]="{ width: '100%' }">
     <div class="flex flex-row justify-content-between w-full">
       <header class="font-semibold mr-3 text-black-600 w-2 text-lg w-10">{{ note.header }}</header>
 
@@ -32,7 +30,7 @@
     <p-button
       icon="pi pi-file-edit"
       severity="success"
-      (click)="showModal()"
+      (onClick)="showModal()"
     ></p-button>
 
     <p-button

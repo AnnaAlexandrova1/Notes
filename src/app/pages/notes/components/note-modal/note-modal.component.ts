@@ -1,11 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, DestroyRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DividerModule } from 'primeng/divider';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -47,7 +40,6 @@ export class NoteModalComponent implements OnInit {
     private dialogRef: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private destroyRef: DestroyRef,
-    private cdref: ChangeDetectorRef,
   ) {
     this.note = this.config.data.note;
     this.isNewNote = this.config.data.isNewNote;
@@ -106,7 +98,7 @@ export class NoteModalComponent implements OnInit {
     const date = this.form.get('date')?.value;
 
     try {
-      await this.apiService.updateNote({
+      this.apiService.updateNote({
         id: this.note.id,
         header,
         content,
