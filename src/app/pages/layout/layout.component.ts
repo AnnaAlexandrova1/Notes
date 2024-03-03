@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 
@@ -12,7 +12,7 @@ import { NavigateService } from '../../services/navigate.service';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
   public menuItems: MenuItem[] = [
     {
       label: 'Заметки',
@@ -34,6 +34,10 @@ export class LayoutComponent {
   public activeItem: MenuItem = this.menuItems[0];
 
   constructor(private navigateService: NavigateService) {}
+
+  public ngOnInit() {
+    this.navigateService.goToTitle(this.activeItem.routerLink);
+  }
 
   public async onActiveItemChange($event: any) {
     await this.navigateService.goToTitle($event.routerLink);

@@ -1,19 +1,42 @@
 <div class="flex gap-5 flex-column-reverse md:flex-row">
   <div class="flex-auto p-fluid">
+    <form
+      class="pt-4 flex flex-column gap-5"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+    >
     <div class="flex-auto p-fluid">
       <div class="mb-4">
-        <label for="email" class="block font-medium text-900 mb-2">Заголовок</label>
-        <input id="email" type="text" [value]="note.header" pInputText>
+        <label for="header" class="block font-medium text-900 mb-2">Заголовок</label>
+
+        <input
+          id="header"
+          label="Имя"
+          formControlName="header"
+          pInputText
+        >
       </div>
 
       <div class="mb-4">
-        <label for="bio" class="block font-medium text-900 mb-2">Заметка</label>
-        <textarea id="bio" type="text"  rows="5" [value]="note.content" [autoResize]="true" pInputTextarea></textarea>
+        <label
+          for="content"
+          class="block font-medium text-900 mb-2"
+        >
+          Заметка</label>
+        <textarea
+          id="content"
+          type="text"
+          rows="5"
+          formControlName="content"
+          pInputTextarea
+          [autoResize]="true"
+        ></textarea>
       </div>
 
       <div class="mb-4">
-        <label for="bio" class="block font-medium text-900 mb-2">Установить теги</label>
+        <label for="tags" class="block font-medium text-900 mb-2">Установить теги</label>
         <p-multiSelect
+          id="tags"
           styleClass="w-full"
           optionLabel="tags"
           optionValue="id"
@@ -26,19 +49,16 @@
       <div class="flex-row">
         <p-button
           icon="pi pi-check"
+          type="submit"
           label="Сохранить"
           severity="success"
           [style]="{ 'width': '10em' }"
-        ></p-button>
-
-        <p-button
-          icon="pi pi-trash"
-          label="Удалить"
-          severity="danger"
-          [style]="{ 'width': '10em', 'margin-left': '.5em' }"
+          [disabled]="!!(apiService.isLoading$ | async)"
+          (onClick)="closeEvent.emit()"
         ></p-button>
       </div>
     </div>
+    </form>
   </div>
 </div>
 

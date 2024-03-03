@@ -88,11 +88,44 @@ export class ApiStateService {
       id: uuid.v4(),
     };
 
-    this.http.post(`http://localhost:3000/tags/`, tag).subscribe({
+    this.http.post(`http://localhost:3000/tags`, tag).subscribe({
       next: (response) => {
         // в данном случае проверка на успешность удаления
         if (response) {
           this.setIsNeedUpdateTags$(true);
+        }
+      },
+      error: (error: Error) => {
+        this.loggerService.error(error);
+      },
+    });
+  }
+
+  public createNote(note: { header: string; content: string; tags?: ITag[] }) {
+    const newNote = {
+      ...note,
+      id: uuid.v4(),
+    };
+
+    this.http.post(`http://localhost:3000/notes`, newNote).subscribe({
+      next: (response) => {
+        // в данном случае проверка на успешность создания
+        if (response) {
+          this.setIsNeeedUpdateNotes(true);
+        }
+      },
+      error: (error: Error) => {
+        this.loggerService.error(error);
+      },
+    });
+  }
+
+  public updateNote(note: INote) {
+    this.http.put(`http://localhost:3000/notes/${note.id}`, note).subscribe({
+      next: (response) => {
+        // в данном случае проверка на успешность создания
+        if (response) {
+          this.setIsNeeedUpdateNotes(true);
         }
       },
       error: (error: Error) => {
@@ -113,6 +146,20 @@ export class ApiStateService {
         // в данном случае проверка на успешность удаления
         if (response) {
           this.setIsNeedUpdatePrompts(true);
+        }
+      },
+      error: (error: Error) => {
+        this.loggerService.error(error);
+      },
+    });
+  }
+
+  public deleteNote(id: string) {
+    this.http.delete(`http://localhost:3000/notes/${id}`).subscribe({
+      next: (response) => {
+        // в данном случае проверка на успешность удаления
+        if (response) {
+          this.setIsNeeedUpdateNotes(true);
         }
       },
       error: (error: Error) => {

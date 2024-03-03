@@ -6,6 +6,7 @@ import { TagModule } from 'primeng/tag';
 
 import { NoteModalComponent } from '../note-modal/note-modal.component';
 import { INote } from '../../../../interfaces/note.interface';
+import { ApiStateService } from '../../../../services/api-state.service';
 
 @Component({
   selector: 'app-note-item',
@@ -17,12 +18,23 @@ import { INote } from '../../../../interfaces/note.interface';
 })
 export class NoteItemComponent {
   @Input({ required: true }) note!: INote;
-  constructor(private dialogService: DialogService) {}
+  constructor(
+    private dialogService: DialogService,
+    public apiService: ApiStateService,
+  ) {}
+
   showModal() {
-    const ref = this.dialogService.open(NoteModalComponent, {
+    this.dialogService.open(NoteModalComponent, {
       width: '50%',
       height: 'auto',
-      data: this.note,
+      data: {
+        note: this.note,
+        isNewNote: false,
+      },
     });
+  }
+
+  public deleteNote(id: string): void {
+    this.apiService.deleteNote(id);
   }
 }

@@ -1,12 +1,12 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { AsyncPipe } from '@angular/common';
 
 import { NoteItemComponent } from './components/note-item/note-item.component';
-import { PromptModalComponent } from '../prompts/prompt-modal/propmt-modal.component';
 import { ApiStateService } from '../../services/api-state.service';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { NoteModalComponent } from './components/note-modal/note-modal.component';
 
 @Component({
   selector: 'app-notes',
@@ -16,7 +16,14 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.scss',
 })
-export class NotesComponent implements OnInit {
+export class NotesComponent implements OnInit, OnDestroy {
+  private subscription$ = this.apiService.isNeeedUpdateNotes$.subscribe((value) => {
+    if (value) {
+      this.apiService.getNotes(this.destroyRef);
+      this.apiService.setIsNeeedUpdateNotes(false);
+    }
+  });
+
   constructor(
     private dialogService: DialogService,
     public apiService: ApiStateService,
@@ -24,13 +31,25 @@ export class NotesComponent implements OnInit {
   ) {}
 
   createNote() {
-    this.dialogService.open(PromptModalComponent, {
+    this.dialogService.open(NoteModalComponent, {
       width: '50%',
       height: 'auto',
+      data: {
+        note: {
+          id: '',
+          content: '',
+          header: '',
+        },
+        isNewNote: true,
+      },
     });
   }
 
   public ngOnInit() {
     this.apiService.getNotes(this.destroyRef);
+  }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
   }
 }
